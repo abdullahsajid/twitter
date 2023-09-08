@@ -1,0 +1,29 @@
+[
+    {
+        "id": 1,
+        "userimg" : "https://pbs.twimg.com/profile_images/1491891173857935365/HJllYRJW_x96.jpg",
+        "notifyvalue" : "New Tweet notifications for George Moller and Tanay Pratap"
+    },
+    {
+        "id" : 2,
+        "userimg" : "https://pbs.twimg.com/profile_images/1613932033041960960/1WAEFAzN_normal.jpg",
+        "notifyvalue" : "Troy liked your reply",
+        "message" : "Imposter"
+    },
+    {
+        "userimg" : "https://pbs.twimg.com/profile_images/1491891173857935365/HJllYRJW_x96.jpg",
+        "notifyvalue" : "New Tweet notifications for George Moller and Tanay Pratap"
+    },
+    {
+        "userimg" : "https://pbs.twimg.com/profile_images/1491891173857935365/HJllYRJW_x96.jpg",
+        "notifyvalue" : "New Tweet notifications for George Moller and Tanay Pratap"
+    },
+    {
+        "userimg" : "https://pbs.twimg.com/profile_images/1491891173857935365/HJllYRJW_x96.jpg",
+        "notifyvalue" : "New Tweet notifications for George Moller and Tanay Pratap"
+    },
+    {
+        "userimg" : "https://pbs.twimg.com/profile_images/1491891173857935365/HJllYRJW_x96.jpg",
+        "notifyvalue" : "New Tweet notifications for George Moller and Tanay Pratap"
+    }
+]

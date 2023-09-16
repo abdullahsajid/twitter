@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { postLike,gettingTweets,postComment,getDetail } from '../../action/UserAction'
+import { postLike,gettingTweets,postComment,bookmarkPost } from '../../action/UserAction'
 import { useDispatch,useSelector } from 'react-redux'
 import CommentOnTweet from './CommentOnTweet'
 
@@ -29,9 +29,20 @@ function Comment(){
             setAddComment('')
             alert("Comment Added!")
         }catch(error){
-            alert(error)
+            console.log(error)
         }
     }
+    
+    const handlerBookmark = (e) => {
+        e.preventDefault()
+        try{
+            const _id = location.state._id
+            dispatch(bookmarkPost({_id}))
+        }catch(error){
+            console.log(error)
+        }
+    }
+
 
     
   return (
@@ -58,7 +69,7 @@ function Comment(){
                                     <div className='flex flex-col items-center w-full'>
                                         <div className='flex flex-row w-full mb-1'>
                                             <div className='me-3 flex items-center' style={{flexBasis:"40px"}}>
-                                                <img src={`${location.state.img}`} className='rounded-full' />
+                                                <img src={`${location.state.img}`} className='rounded-full' style={{width:"48px",height:"40px"}} />
                                             </div>
                                             <div className='flex flex-col grow'>
                                                 <div>
@@ -93,7 +104,7 @@ function Comment(){
                                                     </div>
                                                 </div>
 
-                                                <div className='flex'>
+                                                <div className='flex' onClick={handlerBookmark}>
                                                     <div className='other cursor-pointer' style={{minHeight:'20px'}}>
                                                         <svg viewBox="0 0 24 24" aria-hidden="true" style={{width:"33px",height: "33px"}}><g>
                                                             <path d="M4 4.5C4 3.12 5.119 2 6.5 2h11C18.881 2 20 3.12 20 4.5v18.44l-8-5.71-8 5.71V4.5zM6.5 4c-.276 0-.5.22-.5.5v14.56l6-4.29 6 4.29V4.5c0-.28-.224-.5-.5-.5h-11z"></path>
@@ -111,7 +122,7 @@ function Comment(){
                             <div className='px-4 pt-4 pb-4'>
                                 <div className='flex items-center'>
                                     <div className='me-3 flex items-center' style={{flexBasis:"40px"}}>
-                                        <img src={`${location.state.img}`} className='rounded-full' />
+                                        <img src={`${location.state.img}`} className='rounded-full' style={{width:"48px",height:"40px"}}/>
                                     </div>
                                     <div className='flex justify-between items-center grow'>
                                         <div className='shrink grow w-full'>

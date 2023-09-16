@@ -61,7 +61,6 @@ exports.postLike = async (req,res) => {
     try{
         const addLike = await userPost.findById(req.params._id)
         if(addLike.likes.includes(req.user._id)){
-
             const index =  addLike.likes.indexOf(req.user._id)
             addLike.likes.splice(index,1)
             await addLike.save()
@@ -103,6 +102,67 @@ exports.postComment = async (req,res) => {
         res.status(500).json({
             success:false,
             message: error.message
+        })
+    }
+}
+
+exports.postBookMark = async (req,res) => {
+    try{
+        const post = await userPost.findById(req.params._id)
+        const loginUser = await users.findById(req.user._id)
+    
+        if(loginUser.bookmark.includes(post._id)){
+            const index = loginUser.bookmark.indexOf(post._id)
+            loginUser.bookmark.splice(index,1)
+            await loginUser.save()
+            
+            return res.status(200).json({
+                success:true,
+                message:"post is UnBookmark"
+            })
+        }else{
+            loginUser.bookmark.push(post._id)
+            await loginUser.save()
+
+            res.status(201).json({
+                success:true,
+                message:"Post Bookmark!"
+            })
+        }
+    }catch(error){
+        res.status(500).json({
+            success:false,
+            message:error.message
+        })
+    }
+}
+
+
+exports.getBookMark = async (req,res) => {
+    try{
+        let bookmarkPosted = []
+        const user = await users.findById(req.user._id)
+
+        for(let i=0; i<user.bookmark.length; i++){
+            const bookmarkPost = await userPost.findById(user.bookmark[i])
+            bookmarkPosted.push(bookmarkPost)
+        }
+
+        if(bookmarkPosted == null){
+            return res.status(400).json({
+                message:"no bookmark!"
+            })
+        }
+
+        res.status(201).json({
+            success:true,
+            bookmarkPosted
+        })
+
+    }catch(error){
+        res.status(500).json({
+            success:false,
+            message:error.message
         })
     }
 }

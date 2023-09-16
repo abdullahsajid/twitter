@@ -42,7 +42,7 @@ function Midsec() {
             </div>
             <form className="home-area">
                 <div className="add-tweet">
-                    {profileData && (<img src={`${profileData.details.Avatar.url}`} alt="" />)}
+                    {profileData &&  (<img src={`${(profileData.details) ? profileData.details.Avatar.url : "https://ionicframework.com/docs/img/demos/avatar.svg"}`} />)}
                     <textarea cols="45" rows="1" value={tweetTxt} onChange={(e) => setTweetTxt(e.target.value)} placeholder="What's happening?"></textarea>
                 </div>
                 <div className="add-tweet-imgs">

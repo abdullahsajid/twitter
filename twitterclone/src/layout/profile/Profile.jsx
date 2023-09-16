@@ -12,8 +12,6 @@ function Profile({setEdit,edit}) {
     const param = useParams()
     const dispatch = useDispatch()
    
-
-
     const editProfile = () => {
         setEdit(!edit)
     }
@@ -26,7 +24,6 @@ function Profile({setEdit,edit}) {
         dispatch(getProfile())
         dispatch(getDetail(param.id))
         dispatch(gettingTweets())
-        // tweets && console.log(tweets)
     },[dispatch])
 
     if(!userData.email){
@@ -43,29 +40,29 @@ function Profile({setEdit,edit}) {
                                 <g><path d="M7.414 13l5.043 5.04-1.414 1.42L3.586 12l7.457-7.46 1.414 1.42L7.414 11H21v2H7.414z"></path></g></svg>
                         </div>
                         <div style={{ margin: "0", padding: "0", marginLeft: "20px" }}>
-                            {user && (<p style={{ margin: "0", padding: "0", fontSize: "17px" }}>{user.details.userName}</p>)}
-                            {tweets && <p style={{ margin: "0", padding: "0", fontSize: "12px", color: "#8B98A5" }}>{`${tweets.posted.length} Tweets`}</p>}
+                            {user && (<p style={{ margin: "0", padding: "0", fontSize: "17px" }}>{(user.details) ? user.details.userName : "unknown"}</p>)}
+                            {tweets ? (<p style={{ margin: "0", padding: "0", fontSize: "12px", color: "#8B98A5" }}>{`${tweets.posted?.length} Tweets`}</p>):(<p style={{ margin: "0", padding: "0", fontSize: "12px", color: "#8B98A5" }}>0 Tweets</p>)}
                         </div>
                     </nav>
                 </div>
                 <div>
                     <div>
-                        {user && (<img src={`${user.details.bannerImg.url}`} style={{ height: "199px", width: "548px",objectFit: "cover"}} />)}
+                        {user && (<img src={`${(user.details) ? user.details.bannerImg.url : "https://img.freepik.com/free-vector/abstract-business-professional-background-banner-design-multipurpose_1340-16856.jpg"}`} style={{ height: "199px", width: "548px",objectFit: "cover"}} />)}
                     </div>
                     <div style={{ display: "flex", justifyContent: "space-between" }}>
                         <div style={{ position: "relative",width:"150px"}}>
-                            {user && (<img src={`${user.details.Avatar.url}`} className="profileimg" />)}
+                            {user && (<img src={`${(user.details) ? user.details.Avatar.url : "https://ionicframework.com/docs/img/demos/avatar.svg"}`} className="profileimg" />)}
                         </div>
                         <div className='edit-btn' style={{ border: "1px solid #8B89A5", marginTop: ".5em", borderRadius: "1em", padding: ".3em 1em", marginRight: ".5em" }} onClick={editProfile}>
                             <a href="#" style={{ textDecoration: "none" }}>Edit profile</a>
                         </div>
                     </div>
                     <div style={{ marginTop: "3em", marginLeft: "1.5em", display: "flex", flexDirection: "column" }}>
-                        {user && (<span style={{ fontSize: "20px", fontWeight: "700" }}>{user.details.userName}</span>)}
-                        {userData && ( <span style={{ fontSize: "15px", color: "#8B98A5", marginTop: "-5px" }}>{`@${getEmail}`}</span>)}
+                        {user && (<span style={{ fontSize: "20px", fontWeight: "700" }}>{(user.details) ? user.details.userName : "unknown"}</span>)}
+                        {userData ? ( <span style={{ fontSize: "15px", color: "#8B98A5", marginTop: "-5px" }}>{`@${getEmail}`}</span>):(<span style={{ fontSize: "15px", color: "#8B98A5", marginTop: "-5px" }}>@gmail.com</span>)}
                     </div>
                     <div style={{ marginLeft: "1.5em", marginTop: ".7em" }}>
-                        {user && (<span style={{ fontWeight: "400" }}>{user.details.bio}</span>)}
+                        {user && (<span style={{ fontWeight: "400" }}>{(user.details) ? user.details.bio : ""}</span>)}
                     </div>
                     <div style={{ marginTop: ".5em", marginLeft: "1.5em" }}>
                         <p style={{ color: "#8B98A5" }}>Joined May 2021</p>
@@ -91,8 +88,8 @@ function Profile({setEdit,edit}) {
                 </div>
                 {tweets?.posted.map((data,index) => {
                     return <Tweets key={index} 
-                                img={user.details.Avatar.url}
-                                name={user.details.userName}
+                                img={user.details?.Avatar.url}
+                                name={user.details?.userName}
                                 mention={getEmail}
                                 blog={data.caption}
                                 _id={data._id} 

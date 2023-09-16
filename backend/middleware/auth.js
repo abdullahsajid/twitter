@@ -4,17 +4,17 @@ const cookies = require("cookie-parser");
 exports.auth = async (req,res,next) => {
     try{
         const { token } = req.cookies;
-        // const token = await req.headers.authorization.split(' ')[1]
-        // console.log(token)
+        // console.log("Test Token:",token)
         if(!token){
             return res.status(401).json({
                 message:"please login!",
-                messageError:Error
+                messages:Error
             })
         }
         const decode = await jwt.verify(token,process.env.JWT_TOKEN)
         req.user = await Users.findById(decode._id)
         next()
+        
     }catch(err){
         res.status(401).json({
             success:false,
@@ -22,7 +22,6 @@ exports.auth = async (req,res,next) => {
         })
     }
 }
-
 
 // const token = await req.headers.authorization.split(' ')[1]
 //         console.log(token)

@@ -1,8 +1,6 @@
 import axios from 'axios'
 import Cookies from 'universal-cookie'
 import { createAsyncThunk } from '@reduxjs/toolkit'
-import {profileReq,profileFail,profileSuccess} from '../reducer/User'
-import {getUserProfileReq,getUserProfileSuccess,getUserProfileFail} from '../reducer/ProfileDetails'
 import {loginRequest, loginSuccess,loginFail} from '../reducer/loginUser'
 import {registerRequest,registerSuccess,registerFail} from '../reducer/registerUser'
 import {logoutReq,logoutFail,logoutSuccess} from '../reducer/userLogout'
@@ -220,5 +218,38 @@ export const getAllUser = createAsyncThunk('allUser/User',async() => {
         return res.data
     }catch(error){
         return error
+    }
+})
+
+export const bookmarkPost = createAsyncThunk('markPost/bookmarkPost', async({_id}) => {
+    try{
+        const res = await axios.get(`http://localhost:4000/api/postBookmark/${_id}`,
+            {
+                headers:{
+                    "Content-Type":'application/json'
+                },
+                withCredentials: true
+            }
+        )
+        return res.data
+    }catch(error){
+        return error.message
+    }
+})
+
+
+export const getBookmark = createAsyncThunk('getBookmark/bookmark',async() =>{
+    try{
+        const res = await axios.get(`http://localhost:4000/api/getBookmark`,
+            {
+                headers:{
+                    "Content-Type":'application/json'
+                },
+                withCredentials: true
+            }
+        )
+        return res.data
+    }catch(error){
+        return error.message
     }
 })

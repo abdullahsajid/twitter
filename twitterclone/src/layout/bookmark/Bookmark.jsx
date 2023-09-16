@@ -1,13 +1,24 @@
+import { useEffect } from 'react';
 import Tweets from '../Tweets';
 import tweetsDetails from '../Tweetsdetail';
+import { useDispatch, useSelector } from 'react-redux';
+import {getBookmark} from '../../action/UserAction'
 function Bookmark() {
+    const dispatch = useDispatch()
+    const userData = useSelector((state) => state.user.user)
+    const getEmail = userData.email.split('@')[0]
+    useEffect(()=>{
+        dispatch(getBookmark())
+    },[])
+    const {bookmarkPosted} = useSelector((state) => state.getBookmark.getBookmark)
+    
     return (
         <div className="Mid">
             <div className="navbar" style={{ height: "52px" }}>
                 <nav className="nav">
                     <div>
                         <p style={{ fontSize: "16px", paddingTop: "0", paddingBottom: "0" }}>Bookmarks</p>
-                        <p style={{ fontSize: "11px", paddingTop: "0", paddingBottom: "0", color: "#8B98A5" }}>@aabdullahsajid</p>
+                        <p style={{ fontSize: "11px", paddingTop: "0", paddingBottom: "0", color: "#8B98A5" }}>{`@${getEmail}`}</p>
                     </div>
                     <div>
                         <svg viewBox="0 0 24 24" aria-hidden="true" class="r-4qtqp9 r-yyyyoo r-z80fyv r-dnmrzs r-bnwqim r-1plcrui r-lrvibr r-19wmn03" style={{ color: "rgb(239, 243, 244)" }}>
@@ -15,8 +26,13 @@ function Bookmark() {
                     </div>
                 </nav>
             </div>
-            {tweetsDetails.map((data) => {
-                return <Tweets img={data.img} name={data.name} mention={data.mention} blog={data.blog} />
+            {bookmarkPosted?.map((data) => {
+                return <Tweets _id={data._id}
+                                img={data.img}
+                                name={data.name}
+                                blog={data.caption}
+                                userLike={data.likes.length}
+                                userComment={data.comments} />
             })}
         </div>
     );

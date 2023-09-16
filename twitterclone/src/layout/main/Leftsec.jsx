@@ -134,16 +134,15 @@ function Leftsec({edit}) {
               <>
             <div className="pro-img">
               {profileData && (<img
-                src={`${profileData.details.Avatar.url}`}
-                alt=""
+                src={`${(profileData.details) ? profileData.details.Avatar.url : "https://ionicframework.com/docs/img/demos/avatar.svg"}`}
               />)}
             </div>
             <div className="pro-name">
-              {profileData && (<p className="username">{`${profileData.details.userName}`}</p>)}
+              {profileData && (<p className="username">{`${(profileData.details) ? profileData.details.userName : "unknown"}`}</p>)}
               {profileData && (
                 <>
                   {(()  => {
-                    const getEmail = user.email.split('@')[0];
+                    const getEmail = user.email?.split('@')[0];
                     return <p className="id">{`@${getEmail}`}</p>;
                   })()}
                 </>

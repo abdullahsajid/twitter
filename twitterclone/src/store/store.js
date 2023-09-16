@@ -11,6 +11,8 @@ import likePostReducer from '../reducer/likePost'
 import postCommentReducer from '../reducer/postComment'
 import allPostReducer from '../reducer/allPost'
 import allUserReducer from '../reducer/allUser'
+import markPostReducer from '../reducer/bookmarkPost'
+import getBookmarkReducer from '../reducer/getBookmark'
 
 export const store = configureStore({
     reducer:{
@@ -25,7 +27,11 @@ export const store = configureStore({
         likeAndUnlike: likePostReducer,
         postComment: postCommentReducer,
         allPost: allPostReducer,
-        allUser:allUserReducer
+        allUser:allUserReducer,
+        markPost : markPostReducer,
+        getBookmark: getBookmarkReducer
     }   
 })
+
+
 

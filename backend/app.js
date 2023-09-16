@@ -1,13 +1,13 @@
 const express = require('express')
 const app = express()
 
-
-const {auth} = require('./middleware/auth')
 const cookieParser = require('cookie-parser')
+const {auth} = require('./middleware/auth')
 const cors = require('cors')
 const dbConnect = require('./db/dbConnect')
 const cloudinary = require('cloudinary')
-const corsOptions ={
+
+const corsOptions = {
     origin:'http://localhost:3000', 
     credentials:true,            //access-control-allow-credentials:true
     optionSuccessStatus:200
@@ -36,6 +36,8 @@ app.use('/api',loginRouter)
 app.use('/api',editUserRoute)
 
 app.use('/api',postRoute)
+
+
 
 cloudinary.config({
     cloud_name: process.env.CLOUD_NAME,

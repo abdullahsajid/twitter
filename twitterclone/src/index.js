@@ -12,9 +12,10 @@ import RouteNotification from './routes/RouteNotification';
 import RouteMessage from './routes/RouteMessage';
 import RouteBookmark from './routes/RouteBookmark';
 import RouteProfile from './routes/RouteProfile';
-import Comment from './layout/Comments/Comment';
 import RouteComment from './routes/RouteComment';
 import App from './App';
+import { Toaster } from 'react-hot-toast';
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
@@ -34,6 +35,7 @@ root.render(
           <Route path='/' element={<Home/>}/>
         </Routes> 
       </BrowserRouter>
+      <Toaster/>
     </Provider>
   </React.StrictMode>
 );

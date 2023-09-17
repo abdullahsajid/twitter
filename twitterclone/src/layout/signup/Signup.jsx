@@ -1,7 +1,10 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { registerUser } from '../../action/UserAction'
+import toast from 'react-hot-toast'
+import { useNavigate } from 'react-router-dom'
 const Signup = ({show}) => {
+  const navigate = useNavigate()
   const dispatch = useDispatch()
   const[email,setEmail] = useState("")
   const[password,setPassword] = useState("")
@@ -14,15 +17,30 @@ const Signup = ({show}) => {
       setRegister(true)
      
       if(register){
-        dispatch(registerUser(email,password))
-        .then(() => {
+        const user = dispatch(registerUser({email,password}))
+        console.log(user)
+        if(user){
           setEmail('')
           setPassword('')
           setConfirmPass('')
-          alert('successfully signUp')
-        }).catch((err) => {
-          alert("something went wrong!",err)
-        })       
+          toast.success('successfully signUp',{
+            style: {
+              borderRadius: '10px',
+              border: "1px solid #38444D",
+              background: '#15202B',
+              color: '#fff',
+          }})
+          navigate('/')
+        }else{
+          toast.error("something Wrong!",{
+            style: {
+              borderRadius: '10px',
+              border: "1px solid #38444D",
+              background: '#15202B',
+              color: '#fff',
+          }
+          })
+        }
       }
     }else{
       console.log('wrong password!')

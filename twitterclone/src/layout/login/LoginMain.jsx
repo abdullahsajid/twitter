@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import {useDispatch} from 'react-redux'
 import { loginUser } from '../../action/UserAction'
 import { useNavigate } from 'react-router-dom'
+import toast from 'react-hot-toast'
 
 const LoginMain = ({show}) => {
   const navigate = useNavigate()
@@ -13,9 +14,23 @@ const LoginMain = ({show}) => {
     e.preventDefault()
     const res = await dispatch(loginUser({email,password}))
     if(res.payload && res.payload.token){
+      toast.success("Login Successfully!",{ 
+        style: {
+          borderRadius: '10px',
+          border: "1px solid #38444D",
+          background: '#15202B',
+          color: '#fff',
+      }})
       navigate('/home')
     }else{
-      alert("something Went Wrong!")
+      toast.error("credentials wrong!",{
+        style: {
+          borderRadius: '10px',
+          border: "1px solid #38444D",
+          background: '#15202B',
+          color: '#fff',
+        },
+      })
     }
     
   } 

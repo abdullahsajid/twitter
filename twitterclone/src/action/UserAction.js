@@ -30,10 +30,8 @@ export const loginUser = createAsyncThunk('userLogin/login', async ({email,passw
     }
 })
 
-export const registerUser = (email,password) => async (dispatch) => {
+export const registerUser = createAsyncThunk('registerUser/register', async ({email,password}) => {
     try{
-        dispatch(registerRequest())
-
         const{data} = await axios.post('http://localhost:4000/api/register',{email,password},
             {
                 headers:{
@@ -42,11 +40,11 @@ export const registerUser = (email,password) => async (dispatch) => {
                 withCredentials: true
             }
         )
-        dispatch(registerSuccess(data))
+        return data
     }catch(error){
-        dispatch(registerFail(error))
+        return error
     }
-}
+})
 
 export const postEditProfile = (name,bio,bannerImg,Avatar) => async (dispatch) => {
     try{

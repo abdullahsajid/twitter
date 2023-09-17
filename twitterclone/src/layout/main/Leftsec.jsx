@@ -3,9 +3,9 @@ import '../../App.css';
 import { Link, useNavigate } from "react-router-dom"
 import { useDispatch, useSelector } from 'react-redux';
 import { logoutUser } from '../../action/UserAction';
-import { getProfile,getDetail } from '../../action/UserAction';
 import { Oval } from 'react-loader-spinner'
 import Cookies from 'universal-cookie';
+import toast,{ Toaster } from 'react-hot-toast';
 
 const cookie = new Cookies()
 function Leftsec({edit}) {
@@ -19,12 +19,31 @@ function Leftsec({edit}) {
     setLogout(!toggleLogout)
   }
 
-  const logout = () => {
-    dispatch(logoutUser())
+  const logout = async ()  => {
+    const userlogout = await dispatch(logoutUser())
+    if(userlogout.payload && userlogout.payload.success){
+      toast.success("Logout Successfully!",{
+        style: {
+          borderRadius: '10px',
+          border: "1px solid #38444D",
+          background: '#15202B',
+          color: '#fff',
+        },
+      })
+    }else{
+      toast.error("Something went wrong!",{
+        style: {
+          borderRadius: '10px',
+          border: "1px solid #38444D",
+          background: '#15202B',
+          color: '#fff',
+        },
+      })
+    }
     cookie.remove()
     navigate('/')
   }
- 
+
   const profileData = useSelector((state) => state.profile.user)
 
   useEffect(() => {
@@ -162,6 +181,7 @@ function Leftsec({edit}) {
                 </g>
               </svg>
             </div>
+           
             </>
             )}
           </div>

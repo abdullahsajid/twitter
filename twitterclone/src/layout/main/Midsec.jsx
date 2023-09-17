@@ -5,6 +5,7 @@ import tweetsDetails from '../Tweetsdetail';
 import { Oval } from 'react-loader-spinner'
 import { useDispatch, useSelector } from 'react-redux';
 import {postTweet} from '../../action/UserAction'
+import toast from 'react-hot-toast';
 function Midsec() {
     const dispatch = useDispatch()
     const[tweetTxt,setTweetTxt] = useState('')
@@ -22,12 +23,27 @@ function Midsec() {
     const handlerSubmit =  (e) => {
         e.preventDefault()
         try{
-            dispatch(postTweet(tweetTxt))
+            const addPost = dispatch(postTweet(tweetTxt))
+            if(addPost){
+                toast.success('post successfully created!',{
+                    style: {
+                        borderRadius: '10px',
+                        border: "1px solid #38444D",
+                        background: '#15202B',
+                        color: '#fff',
+                    }
+                })
+            }
             setTweetTxt('')
-            alert("post created!")
         }catch(error){
-            console.log('Something Error!')
-            console.log(error)
+            toast.error(error,{
+                style: {
+                    borderRadius: '10px',
+                    border: "1px solid #38444D",
+                    background: '#15202B',
+                    color: '#fff',
+                }
+            })
         }
     }
 

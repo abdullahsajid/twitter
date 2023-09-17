@@ -9,25 +9,11 @@ import { getProfile,getDetail} from './action/UserAction';
 function App() {
   const dispatch = useDispatch()
   const userData = useSelector((state) => state.user.user)
-  // const token = cookies.get('token')
-  // useEffect(() => {
-  //   axios.get("http://localhost:4000/auth",{
-  //     headers:{
-  //       Authorization: `Bearer ${token}`
-  //     }
-  //   }).then((result) => {
-  //     console.log(result.data.message)
-  //   }).catch((err) => {
-  //     // console.log(err)
-  //   })
-  // })
-
   useEffect(() => {
         dispatch(getProfile())
         if(userData.profileDetails){
           dispatch(getDetail(`${userData._id}`))
         }
-        // console.log(userData.profileDetails)
   },[dispatch,userData.profileDetails])
 
       return (

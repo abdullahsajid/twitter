@@ -9,10 +9,10 @@ exports.createUser = (req,res) => {
             password:hashedPassword
         })
         users.save()
-        .then((result) => {
+        .then((users) => {
             res.status(201).send({
                 message:'user created successfully!',
-                result
+                users
             })
         }).catch((err) => {
             res.status(500).send({

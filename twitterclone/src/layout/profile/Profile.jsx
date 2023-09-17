@@ -91,11 +91,11 @@ function Profile({setEdit,edit}) {
                                 img={user.details?.Avatar.url}
                                 name={user.details?.userName}
                                 mention={getEmail}
-                                blog={data.caption}
-                                _id={data._id} 
-                                userLike={data.likes.length}
-                                userLikes={data.likes}
-                                userComment={data.comments}
+                                blog={data?.caption}
+                                _id={data?._id} 
+                                userLike={data?.likes.length}
+                                userLikes={data?.likes}
+                                userComment={data?.comments}
                             />
                 })}
             </div>

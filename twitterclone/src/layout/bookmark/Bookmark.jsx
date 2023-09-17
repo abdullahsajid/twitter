@@ -1,17 +1,20 @@
 import { useEffect } from 'react';
 import Tweets from '../Tweets';
-import tweetsDetails from '../Tweetsdetail';
 import { useDispatch, useSelector } from 'react-redux';
-import {getBookmark} from '../../action/UserAction'
+import {getBookmark,getAllPost,getAllUser} from '../../action/UserAction'
 function Bookmark() {
     const dispatch = useDispatch()
     const userData = useSelector((state) => state.user.user)
     const getEmail = userData.email.split('@')[0]
     useEffect(()=>{
         dispatch(getBookmark())
-    },[])
+        dispatch(getAllPost())
+        dispatch(getAllUser())
+    },[dispatch])
     const {bookmarkPosted} = useSelector((state) => state.getBookmark.getBookmark)
-    
+    const {allpost}  = useSelector((state) => state.allPost.allPost)
+    const {alluser}  = useSelector((state) => state.allUser.allUser)
+    // console.log(alluser)
     return (
         <div className="Mid">
             <div className="navbar" style={{ height: "52px" }}>
@@ -27,9 +30,13 @@ function Bookmark() {
                 </nav>
             </div>
             {bookmarkPosted?.map((data) => {
+                const bookmarkProfile = allpost?.find((val) => val.Owner == data.owner)
+                const bookmarkUser = alluser?.find((val) => val._id == data.owner)
+                const email = bookmarkUser?.email.split('@')[0]
                 return <Tweets _id={data._id}
-                                img={data.img}
-                                name={data.name}
+                                img={bookmarkProfile?.Avatar.url}
+                                name={bookmarkProfile?.userName}
+                                mention={email}
                                 blog={data.caption}
                                 userLike={data.likes.length}
                                 userComment={data.comments} />

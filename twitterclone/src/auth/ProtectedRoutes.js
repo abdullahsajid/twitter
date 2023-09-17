@@ -2,6 +2,7 @@ import React from "react";
 import Cookies from "universal-cookie";
 import App from "../App";
 import Home from "../layout/home/Home";
+import { Navigate, Outlet } from "react-router-dom";
 const cookies = new Cookies();
 // { component: Component, ...rest }
 
@@ -10,7 +11,7 @@ export default function ProtectedRoutes() {
   
   return (
         <>
-        {token ? <App/>:<Home/>}
+        {token ? <Outlet/>:<Navigate to={'/'}/>}
         </>
   );
 }

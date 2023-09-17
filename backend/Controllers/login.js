@@ -7,6 +7,7 @@ exports.userLogin = (req,res) => {
     .then((user) => {
         bcrypt.compare(req.body.password,user.password)
         .then((passcheck) => {
+            
             if(!passcheck){
                 return res.status(400).send({
                     message:"password not match",
@@ -29,6 +30,7 @@ exports.userLogin = (req,res) => {
             })
         })
         .catch((err) => {
+            
             res.status(400).send({
                 message:"password not match!",
                 err
@@ -36,6 +38,7 @@ exports.userLogin = (req,res) => {
         })
     })
     .catch((err) => {
+       
         res.status(404).send({
             message:"email not found",
             err

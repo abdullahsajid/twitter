@@ -1,37 +1,34 @@
 import axios from 'axios'
 import Cookies from 'universal-cookie'
 import { createAsyncThunk } from '@reduxjs/toolkit'
-import {loginRequest, loginSuccess,loginFail} from '../reducer/loginUser'
 import {registerRequest,registerSuccess,registerFail} from '../reducer/registerUser'
-import {logoutReq,logoutFail,logoutSuccess} from '../reducer/userLogout'
 import {editProfileReq,editProfileSuccess,editProfileFail} from '../reducer/editProfile'
 import {tweetReq,tweetSuccess,tweetFail} from '../reducer/tweet'
 import {getTweetReq,getTweetSuccess,getTweetFail} from '../reducer/getTweets'
 import {likeReq,likeSuccess,likeFail} from '../reducer/likePost'
 
+
 const cookie = new Cookies()
 
-export const loginUser = (email,password) => async (dispatch) => {
+export const loginUser = createAsyncThunk('userLogin/login', async ({email,password}) => {
     try{
-        dispatch(loginRequest())
-
-        const {data} = await axios.post('http://localhost:4000/api/login',{email,password},
+        const res = await axios.post('http://localhost:4000/api/login',{email,password},
             {
                 headers:{
                     "Content-Type":'application/json'
-                }
+                },
+               
             }
         )
-        cookie.set("token",data.token,{
+        cookie.set("token",res.data.token,{
             path:'/'
         })
-        
-        window.location.href="/home"
-        dispatch(loginSuccess(data))
+    
+        return res.data
     }catch(error){
-        dispatch(loginFail(error))
+        return error
     }
-}
+})
 
 export const registerUser = (email,password) => async (dispatch) => {
     try{
@@ -72,17 +69,21 @@ export const postEditProfile = (name,bio,bannerImg,Avatar) => async (dispatch) =
 }
 
 
-export const logoutUser = () => async (dispatch) => {
+export const logoutUser = createAsyncThunk('userLogout/logout', async () => {
     try{
-        dispatch(logoutReq())
-
-        await axios.get('http://localhost:4000/api/logout')
-
-        dispatch(logoutSuccess())
+        const {data} = await axios.get('http://localhost:4000/api/logout',
+            {
+                headers:{
+                    "Content-Type":'application/json'
+                },
+                withCredentials: true
+            }
+        )
+        return data
     }catch(error){
-        dispatch(logoutFail(error))
+        return error
     }
-}
+})
 
 
 export const getDetail = createAsyncThunk('user/profileDetails', async (id) => {

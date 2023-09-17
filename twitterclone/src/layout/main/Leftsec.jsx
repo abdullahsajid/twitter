@@ -1,19 +1,19 @@
 import { useEffect, useState } from 'react';
 import '../../App.css';
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { useDispatch, useSelector } from 'react-redux';
 import { logoutUser } from '../../action/UserAction';
 import { getProfile,getDetail } from '../../action/UserAction';
 import { Oval } from 'react-loader-spinner'
-import {useParams} from 'react-router-dom'
+import Cookies from 'universal-cookie';
 
+const cookie = new Cookies()
 function Leftsec({edit}) {
-  const param = useParams()
+  const navigate = useNavigate()
   const dispatch = useDispatch()
   const user = useSelector((state) => state.user.user)
   const {loading} = useSelector((state) => state.user)
   const[toggleLogout,setLogout] = useState(false)
-  const userData = useSelector((state) => state.user.user)
   
   const handleChange = () => {
     setLogout(!toggleLogout)
@@ -21,7 +21,8 @@ function Leftsec({edit}) {
 
   const logout = () => {
     dispatch(logoutUser())
-    window.location.href = "/"
+    cookie.remove()
+    navigate('/')
   }
  
   const profileData = useSelector((state) => state.profile.user)

@@ -1,27 +1,28 @@
 import { createSlice } from "@reduxjs/toolkit";
-
+import {loginUser} from '../action/UserAction'
 const initialState = {
     userLogin:{}
 }
 
-export const loginUser = createSlice({
+export const loginuser = createSlice({
     name:'userLogin',
     initialState,
-    reducers:{
-        loginRequest:(state) => {
-            state.loading = true
-        },
-        loginSuccess:(state,action) => {
+    extraReducers:builder=>{
+        builder.addCase(
+            loginUser.pending,(state) => {
+                state.loading = true
+        })
+        .addCase(
+            loginUser.fulfilled,(state,action) => {
             state.loading = false
-            state.user = action.payload
-        },
-        loginFail:(state,action) => {
+            state.userLogin = action.payload
+        })
+        .addCase(
+            loginUser.rejected,(state,action) => {
             state.loading = false
             state.error = action.payload
-        },
+        })
     }
 })
 
-
-export const {loginRequest,loginSuccess,loginFail} = loginUser.actions
-export default loginUser.reducer
+export default loginuser.reducer

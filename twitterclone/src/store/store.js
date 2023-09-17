@@ -1,7 +1,7 @@
 import {configureStore} from '@reduxjs/toolkit'
 import userReducer  from '../reducer/User'
 import profileReducer from '../reducer/ProfileDetails'
-import loginUserReducer from '../reducer/loginUser'
+import userLoginReducer from '../reducer/loginUser'
 import registerUserReducer from '../reducer/registerUser'
 import userLogoutReducer from '../reducer/userLogout'
 import editProfileReducer from '../reducer/editProfile'
@@ -18,7 +18,7 @@ export const store = configureStore({
     reducer:{
         user : userReducer,
         profile: profileReducer,
-        userLogin: loginUserReducer,
+        userLogin: userLoginReducer,
         registerUser: registerUserReducer,
         userLogout: userLogoutReducer,
         editProfile: editProfileReducer,

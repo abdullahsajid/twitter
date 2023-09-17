@@ -1,9 +1,6 @@
 import './App.css';
-import Home from './layout/home/Home';
 import Leftsec from './layout/main/Leftsec';
 import { useState,useEffect } from 'react';
-import axios from 'axios';
-import Cookies from 'universal-cookie';
 import Midsec from './layout/main/Midsec';
 import Rightsec from './layout/main/Rightsec';
 

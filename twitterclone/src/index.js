@@ -14,21 +14,24 @@ import RouteBookmark from './routes/RouteBookmark';
 import RouteProfile from './routes/RouteProfile';
 import Comment from './layout/Comments/Comment';
 import RouteComment from './routes/RouteComment';
+import App from './App';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <Provider store={store}>
+    <Provider store={store}> 
       <BrowserRouter>
        <Routes>
+          <Route element={<ProtectedRoutes/>}>
+            <Route path="/home" element={<App />} />
+            <Route path='/explore' element={<RouteExplore/>} />
+            <Route path='/communities' element={<RouteCommunities/>} />
+            <Route path='/notification' element={<RouteNotification/>} />
+            <Route path='/message' element={<RouteMessage/>} />
+            <Route path='/bookmark' element={<RouteBookmark/>} />
+            <Route path='/profile/:id' element={<RouteProfile/>} />
+            <Route path='/comments' element={<RouteComment/>}/>
+          </Route>
           <Route path='/' element={<Home/>}/>
-          <Route path="/home" element={<ProtectedRoutes />} />
-          <Route path='/explore' element={<RouteExplore/>} />
-          <Route path='/communities' element={<RouteCommunities/>} />
-          <Route path='/notification' element={<RouteNotification/>} />
-          <Route path='/message' element={<RouteMessage/>} />
-          <Route path='/bookmark' element={<RouteBookmark/>} />
-          <Route path='/profile/:id' element={<RouteProfile/>} />
-          <Route path='/comments' element={<RouteComment/>}/>
         </Routes> 
       </BrowserRouter>
     </Provider>

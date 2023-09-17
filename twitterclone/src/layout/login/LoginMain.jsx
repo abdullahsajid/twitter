@@ -1,15 +1,23 @@
 import React, { useState } from 'react'
 import {useDispatch} from 'react-redux'
 import { loginUser } from '../../action/UserAction'
+import { useNavigate } from 'react-router-dom'
 
 const LoginMain = ({show}) => {
+  const navigate = useNavigate()
   const[email,setEmail] = useState('')
   const[password,setPassword] = useState('')
   const dispatch = useDispatch()
 
-  const handleChecker =  (e) => {
+  const handleChecker = async (e) => {
     e.preventDefault()
-    dispatch(loginUser(email,password))
+    const res = await dispatch(loginUser({email,password}))
+    if(res.payload && res.payload.token){
+      navigate('/home')
+    }else{
+      alert("something Went Wrong!")
+    }
+    
   } 
   
   return (

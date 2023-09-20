@@ -8,4 +8,6 @@
 
 ![Screenshot 2023-09-20 123709](https://github.com/abdullahsajid/twitter/assets/77003390/135dd962-9945-46f4-aef9-ad36be298f08)
 
-``Technology: Mern Stack ``
+```
+Technology: Mern Stack 
+```

@@ -27,6 +27,18 @@ const UserSchema = new mongoose.Schema({
       ref: "posts",
     },
   ],
+  followers:[
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref:'users'
+    }
+  ],
+  following:[
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref:'users'
+    }
+  ]
 });
 UserSchema.pre("save", function (next) {
   if (!this.posts) {

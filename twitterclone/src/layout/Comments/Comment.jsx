@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import { postLike,gettingTweets,postComment,bookmarkPost } from '../../action/UserAction'
 import { useDispatch,useSelector } from 'react-redux'
 import CommentOnTweet from './CommentOnTweet'
+import toast from 'react-hot-toast'
 
 function Comment(){
     const[addComment,setAddComment] = useState('')
@@ -33,11 +34,21 @@ function Comment(){
         }
     }
     
-    const handlerBookmark = (e) => {
+    const handlerBookmark = async (e) => {
         e.preventDefault()
         try{
             const _id = location.state._id
-            dispatch(bookmarkPost({_id}))
+            const bookMarkPost = await dispatch(bookmarkPost({_id}))
+            if(bookMarkPost){
+                toast.success(`${bookMarkPost.payload.message}`,{
+                    style: {
+                      borderRadius: '10px',
+                      border: "1px solid #38444D",
+                      background: '#15202B',
+                      color: '#fff',
+                  }})
+            }
+            console.log(bookMarkPost)
         }catch(error){
             console.log(error)
         }

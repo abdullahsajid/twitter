@@ -69,11 +69,11 @@ function Profile({setEdit,edit}) {
                     </div>
                     <div style={{ display: "flex", marginTop: ".5em", marginLeft: "1.5em" }}>
                         <div style={{ marginRight: "1.5em" }}>
-                            <span style={{ marginRight: ".3em", fontSize: "14px", fontWeight: "700" }}>160</span>
+                            {userData &&<span style={{ marginRight: ".3em", fontSize: "14px", fontWeight: "700" }}>{(userData) ? userData.following.length : '0'}</span>}
                             <span style={{ color: "#8B98A5", fontSize: "15px" }}>Following</span>
                         </div>
                         <div>
-                            <span style={{ marginRight: ".3em", fontSize: "14px", fontWeight: "700" }}>19</span>
+                            {userData && <span style={{ marginRight: ".3em", fontSize: "14px", fontWeight: "700" }}>{(userData) ? userData.followers.length : '0'}</span>}
                             <span style={{ color: "#8B98A5", fontSize: "15px" }}>Followers</span>
                         </div>
                     </div>

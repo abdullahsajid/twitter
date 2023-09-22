@@ -18,7 +18,7 @@ const Signup = ({show}) => {
      
       if(register){
         const user = dispatch(registerUser({email,password}))
-        console.log(user)
+        // console.log(user)
         if(user){
           setEmail('')
           setPassword('')

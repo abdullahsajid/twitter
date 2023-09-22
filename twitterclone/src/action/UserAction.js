@@ -222,7 +222,7 @@ export const getAllUser = createAsyncThunk('allUser/User',async() => {
 
 export const bookmarkPost = createAsyncThunk('markPost/bookmarkPost', async({_id}) => {
     try{
-        const res = await axios.get(`http://localhost:4000/api/postBookmark/${_id}`,
+        const {data} = await axios.get(`http://localhost:4000/api/postBookmark/${_id}`,
             {
                 headers:{
                     "Content-Type":'application/json'
@@ -230,7 +230,7 @@ export const bookmarkPost = createAsyncThunk('markPost/bookmarkPost', async({_id
                 withCredentials: true
             }
         )
-        return res.data
+        return data
     }catch(error){
         return error.message
     }

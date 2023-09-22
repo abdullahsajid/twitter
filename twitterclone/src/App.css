@@ -519,7 +519,7 @@ body{
     color: rgb(0, 186, 124);
 }
 .likes-count{
-    animation: likes .1s;
+    animation: likes .6s;
 }
 .activeLike:hover svg{
     fill: rgb(249, 24, 128);
@@ -540,12 +540,15 @@ body{
     border-color: rgb(83, 100, 113);
 }
 @keyframes likes {
-    to{
-        padding-top: 1.2em;
-    }
-    from{
-        padding-top: .5em;
-    }
+    0% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.2);
+      }
+      100% {
+        transform: scale(1);
+      }
 }
 .like:hover svg{
     fill: rgb(249, 24, 128);

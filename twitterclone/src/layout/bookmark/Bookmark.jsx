@@ -14,7 +14,7 @@ function Bookmark() {
     const {bookmarkPosted} = useSelector((state) => state.getBookmark.getBookmark)
     const {allpost}  = useSelector((state) => state.allPost.allPost)
     const {alluser}  = useSelector((state) => state.allUser.allUser)
-    // console.log(alluser)
+    
     return (
         <div className="Mid">
             <div className="navbar" style={{ height: "52px" }}>

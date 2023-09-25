@@ -166,3 +166,26 @@ exports.getBookMark = async (req,res) => {
         })
     }
 }
+
+exports.followPost = async (req,res) => {
+    try{
+        const loginUser = await users.findById(req.user._id)
+        let latestPost = []
+        for(let i=0; i<loginUser.following.length; i++){
+            let getFollowingUser = await loginUser.following[i]
+            let followingUser = await users.findById(getFollowingUser)
+            let getLatestPostId = await followingUser.posts[followingUser.posts.length - 1]
+            let getLatestPost = await userPost.findById(getLatestPostId)
+            latestPost.push(getLatestPost)
+        }   
+        res.status(200).json({
+            success:true,
+            latestPost
+        })
+    }catch(error){
+        res.status(500).json({
+            success:false,
+            message:error.message
+        })
+    }
+}

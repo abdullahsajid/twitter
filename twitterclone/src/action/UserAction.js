@@ -237,7 +237,7 @@ export const bookmarkPost = createAsyncThunk('markPost/bookmarkPost', async({_id
 })
 
 
-export const getBookmark = createAsyncThunk('getBookmark/bookmark',async() =>{
+export const getBookmark = createAsyncThunk('getBookmark/bookmark',async () =>{
     try{
         const res = await axios.get(`http://localhost:4000/api/getBookmark`,
             {
@@ -250,5 +250,69 @@ export const getBookmark = createAsyncThunk('getBookmark/bookmark',async() =>{
         return res.data
     }catch(error){
         return error.message
+    }
+})
+
+export const getAllProfile = createAsyncThunk('getAllProfile/profiles',async () => {
+    try{
+        const {data} = await axios.get('http://localhost:4000/api/getAllProfile',
+            {
+                headers:{
+                    "Content-Type":'application/json'
+                },
+                withCredentials: true
+            }
+        )
+        return data
+    }catch(error){
+        return error.message
+    }
+})
+
+export const followUser = createAsyncThunk('followUser/follow', async ({_id}) => {
+    try{
+        const {data} = await axios.get(`http://localhost:4000/api/following/${_id}`,
+            {
+                headers:{
+                    "Content-Type":'application/json'
+                },
+                withCredentials: true
+            }
+        )
+        return data
+    }catch(error){
+        return error.message
+    }
+})
+
+export const followOtherUser = createAsyncThunk('follower/follow', async ({_id}) => {
+    try{
+        const {data} = await axios.get(`http://localhost:4000/api/follower/${_id}`,
+            {
+                headers:{
+                    "Content-Type":'application/json'
+                },
+                withCredentials: true
+            }
+        )
+        return data
+    }catch(error){
+        return error.message
+    }
+})
+
+export const getLatestPost = createAsyncThunk('getLatestPost/post', async () => {
+    try{
+        const {data} = await axios.get(`http://localhost:4000/api/latestPost`,
+            {
+                headers:{
+                    "Content-Type":'application/json'
+                },
+                withCredentials: true
+            }
+        )
+        return data
+    }catch(err){
+        return err.message
     }
 })

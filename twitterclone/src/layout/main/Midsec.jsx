@@ -4,12 +4,15 @@ import Tweets from '../Tweets';
 import tweetsDetails from '../Tweetsdetail';
 import { Oval } from 'react-loader-spinner'
 import { useDispatch, useSelector } from 'react-redux';
-import {postTweet} from '../../action/UserAction'
+import {postTweet,getLatestPost} from '../../action/UserAction'
 import toast from 'react-hot-toast';
 function Midsec() {
     const dispatch = useDispatch()
     const[tweetTxt,setTweetTxt] = useState('')
+    const userData = useSelector((state) => state.user.user)
     const profileData = useSelector((state) => state.profile.user)
+    const {allpost} = useSelector((state) => state.allPost.allPost)
+    const {alluser} = useSelector((state) => state.allUser.allUser)
     const[condition,setCondition] = useState(true)
     const setTime = () => {
         setTimeout(() => {
@@ -46,7 +49,11 @@ function Midsec() {
             })
         }
     }
-
+    useEffect(()=>{
+        dispatch(getLatestPost())
+    },[dispatch])
+    const {latestPost} = useSelector((state)=>state.getLatestPost.getLatestPost)
+    
     return (
         <div className="Mid">
             <div className="navbar">
@@ -106,8 +113,20 @@ function Midsec() {
                 </div>
              ):(
                 <>
-                {tweetsDetails.map((data,index) =>{
-                    return <Tweets key={index} img={data.img} name={data.name} mention={data.mention} blog={data.blog}/>
+                {latestPost.map((data,index) =>{
+                    const item  = allpost?.find((val) => val.Owner == data.owner)
+                    const getMail = alluser?.find((val) => val._id == data.owner)
+                    const email = getMail?.email.split('@')[0]
+                    return <Tweets
+                            img={item?.Avatar.url}
+                            name={item?.userName}
+                            mention={email}
+                            blog={data?.caption}
+                            _id={data?._id} 
+                            userLike={data?.likes.length}
+                            userLikes={data?.likes}
+                            userComment={data?.comments}
+                            />
                 })}
                 </>
             )}

@@ -13,6 +13,10 @@ import allPostReducer from '../reducer/allPost'
 import allUserReducer from '../reducer/allUser'
 import markPostReducer from '../reducer/bookmarkPost'
 import getBookmarkReducer from '../reducer/getBookmark'
+import allUserProfileReducer from '../reducer/allProfiles'
+import followUserReducer from '../reducer/following'
+import followerUserReducer from '../reducer/follower'
+import getLatestPostReducer from '../reducer/latestPost'
 
 export const store = configureStore({
     reducer:{
@@ -29,7 +33,11 @@ export const store = configureStore({
         allPost: allPostReducer,
         allUser:allUserReducer,
         markPost : markPostReducer,
-        getBookmark: getBookmarkReducer
+        getBookmark: getBookmarkReducer,
+        allUserProfile: allUserProfileReducer,
+        followUser: followUserReducer,
+        followerUser:followerUserReducer,
+        getLatestPost:getLatestPostReducer
     }   
 })
 

@@ -1,6 +1,17 @@
 import SuggestionFolks from "../SuggestionFolks";
 import folksdata from "../../data/folksdata.json"
+import { useSelector } from "react-redux";
 function ExploreRight() {
+    const {alluser} = useSelector((state) => state.allUser.allUser)
+    const {allProfile} = useSelector((state) => state.allUserProfile.allUserProfile)
+    let copyAllUser = alluser && [...alluser]
+    let copyUser = []
+    let allUserlength = alluser?.length
+    for(let i=0; i<3; i++){
+        let userIndex =  Math.floor(Math.random() * allUserlength)
+        copyUser.push(copyAllUser[userIndex]) 
+        // console.log(userIndex)
+    }
     return (
         <div className="right">
             <div className="rightArea">
@@ -9,8 +20,9 @@ function ExploreRight() {
                         <p style={{ fontSize: "20px", fontWeight: "bold", marginBottom: ".5em" }}>Who to follow</p>
                     </div>
                     <div className="folksmain">
-                        {folksdata.map((data) => {
-                            return <SuggestionFolks img={data.img} name={data.name} tag={data.tag} />
+                        {copyUser.map((data) => {
+                            let profileId = allProfile?.find((item) => item._id == data.profileDetails)
+                            return <SuggestionFolks _id={data._id} img={profileId?.Avatar.url} name={profileId?.userName} tag={data.email} />
                         })}
                     </div>
                 </div>

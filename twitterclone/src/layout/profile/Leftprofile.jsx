@@ -2,7 +2,18 @@ import Trends from "../Trends";
 import TrendsData from "../../data/TrendsData.json";
 import SuggestionFolks from "../SuggestionFolks"
 import folksdata from "../../data/folksdata.json"
+import {useSelector} from 'react-redux'
 function Leftprofile({edit}) {
+    const {alluser} = useSelector((state) => state.allUser.allUser)
+    const {allProfile} = useSelector((state) => state.allUserProfile.allUserProfile)
+    let copyAllUser = alluser && [...alluser]
+    let copyUser = []
+    let allUserlength = alluser?.length
+    for(let i=0; i<3; i++){
+        let userIndex =  Math.floor(Math.random() * allUserlength)
+        copyUser.push(copyAllUser[userIndex]) 
+        // console.log(userIndex)
+    }
     return (
         <div className={`${edit ? 'right opacity-50' : 'right'}`}>
             <div className="search">
@@ -26,8 +37,10 @@ function Leftprofile({edit}) {
                     <p style={{ fontSize: "20px", fontWeight: "bold", marginBottom: ".5em" }}>You might like</p>
                 </div>
                 <div className="folksmain">
-                    {folksdata.map((data) => {
-                        return <SuggestionFolks img={data.img} name={data.name} tag={data.tag} />
+                    {copyUser.map((data) => {
+                        let profileId = allProfile?.find((item) => item._id == data.profileDetails)
+                        console.log(data._id)
+                        return <SuggestionFolks _id={data._id} img={profileId?.Avatar.url} name={profileId?.userName} tag={data.email} />
                     })}
                 </div>
             </div>

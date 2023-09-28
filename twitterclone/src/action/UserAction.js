@@ -9,10 +9,11 @@ import {likeReq,likeSuccess,likeFail} from '../reducer/likePost'
 
 
 const cookie = new Cookies()
+const {REACT_APP_BASE_URL} = process.env
 
 export const loginUser = createAsyncThunk('userLogin/login', async ({email,password}) => {
     try{
-        const res = await axios.post('http://localhost:4000/api/login',{email,password},
+        const res = await axios.post(`${REACT_APP_BASE_URL}/login`,{email,password},
             {
                 headers:{
                     "Content-Type":'application/json'
@@ -32,7 +33,7 @@ export const loginUser = createAsyncThunk('userLogin/login', async ({email,passw
 
 export const registerUser = createAsyncThunk('registerUser/register', async ({email,password}) => {
     try{
-        const{data} = await axios.post('http://localhost:4000/api/register',{email,password},
+        const{data} = await axios.post(`${REACT_APP_BASE_URL}/register`,{email,password},
             {
                 headers:{
                     "Content-Type":'application/json'
@@ -50,7 +51,7 @@ export const postEditProfile = (name,bio,bannerImg,Avatar) => async (dispatch) =
     try{
         dispatch(editProfileReq())
 
-        const {data} = await axios.post('http://localhost:4000/api/editProfile',{name,bio,bannerImg,Avatar},
+        const {data} = await axios.post(`${REACT_APP_BASE_URL}/editProfile`,{name,bio,bannerImg,Avatar},
         {
             headers:{
                 "Content-Type":'application/json'
@@ -69,7 +70,7 @@ export const postEditProfile = (name,bio,bannerImg,Avatar) => async (dispatch) =
 
 export const logoutUser = createAsyncThunk('userLogout/logout', async () => {
     try{
-        const {data} = await axios.get('http://localhost:4000/api/logout',
+        const {data} = await axios.get(`${REACT_APP_BASE_URL}/logout`,
             {
                 headers:{
                     "Content-Type":'application/json'
@@ -86,7 +87,7 @@ export const logoutUser = createAsyncThunk('userLogout/logout', async () => {
 
 export const getDetail = createAsyncThunk('user/profileDetails', async (id) => {
     try{
-        const {data} = await axios.get(`http://localhost:4000/api/getUserDetail/${id}`,
+        const {data} = await axios.get(`${REACT_APP_BASE_URL}/getUserDetail/${id}`,
             {
                 headers:{
                     "Content-Type":'application/json'
@@ -103,7 +104,7 @@ export const getDetail = createAsyncThunk('user/profileDetails', async (id) => {
 
 export const getProfile = createAsyncThunk('user/getUser', async () => {
     try{
-        const {data} = await axios.get('http://localhost:4000/api/me',
+        const {data} = await axios.get(`${REACT_APP_BASE_URL}/me`,
             {
                 headers:{
                     "Content-Type":'application/json'
@@ -121,7 +122,7 @@ export const postTweet = (caption) => async (dispatch) => {
     try{
         dispatch(tweetReq())
 
-        const {data} = await axios.post('http://localhost:4000/api/post',{caption},
+        const {data} = await axios.post(`${REACT_APP_BASE_URL}/post`,{caption},
             {
                 headers:{
                     "Content-Type":'application/json'
@@ -139,7 +140,7 @@ export const gettingTweets = () => async (dispatch) => {
     try{
         dispatch(getTweetReq())
 
-        const {data} = await axios.get('http://localhost:4000/api/getPosts',
+        const {data} = await axios.get(`${REACT_APP_BASE_URL}/getPosts`,
             {
                 headers:{
                     "Content-Type":'application/json'
@@ -157,7 +158,7 @@ export const gettingTweets = () => async (dispatch) => {
 export const postLike = (_id) => async (dispatch) => {
     try{
         dispatch(likeReq())
-        const{data} = await axios.get(`http://localhost:4000/api/postLike/${_id}`,
+        const{data} = await axios.get(`${REACT_APP_BASE_URL}/postLike/${_id}`,
             {
                 headers:{
                     "Content-Type":'application/json'
@@ -173,7 +174,7 @@ export const postLike = (_id) => async (dispatch) => {
 
 export const postComment = createAsyncThunk('postComment/comment', async ({_id,comment}) => {
     try{
-        const res = await axios.post(`http://localhost:4000/api/comment/${_id}`,{comment},
+        const {data} = await axios.post(`${REACT_APP_BASE_URL}/comment/${_id}`,{comment},
             {
                 headers:{
                     "Content-Type":'application/json'
@@ -181,7 +182,7 @@ export const postComment = createAsyncThunk('postComment/comment', async ({_id,c
                 withCredentials: true
             }
         )
-        return res.data
+        return data
 
     }catch(error){
         return error
@@ -190,7 +191,7 @@ export const postComment = createAsyncThunk('postComment/comment', async ({_id,c
 
 export const getAllPost = createAsyncThunk('allPost/Post',async() => {
     try{
-        const res = await axios.get(`http://localhost:4000/api/getAllPost`,
+        const res = await axios.get(`${REACT_APP_BASE_URL}/getAllPost`,
             {
                 headers:{
                     "Content-Type":'application/json'
@@ -206,7 +207,7 @@ export const getAllPost = createAsyncThunk('allPost/Post',async() => {
 
 export const getAllUser = createAsyncThunk('allUser/User',async() => {
     try{
-        const res = await axios.get('http://localhost:4000/api/getAllUser',
+        const res = await axios.get(`${REACT_APP_BASE_URL}/getAllUser`,
             {
                 headers:{
                     "Content-Type":'application/json'
@@ -222,7 +223,7 @@ export const getAllUser = createAsyncThunk('allUser/User',async() => {
 
 export const bookmarkPost = createAsyncThunk('markPost/bookmarkPost', async({_id}) => {
     try{
-        const {data} = await axios.get(`http://localhost:4000/api/postBookmark/${_id}`,
+        const {data} = await axios.get(`${REACT_APP_BASE_URL}/postBookmark/${_id}`,
             {
                 headers:{
                     "Content-Type":'application/json'
@@ -239,7 +240,7 @@ export const bookmarkPost = createAsyncThunk('markPost/bookmarkPost', async({_id
 
 export const getBookmark = createAsyncThunk('getBookmark/bookmark',async () =>{
     try{
-        const res = await axios.get(`http://localhost:4000/api/getBookmark`,
+        const res = await axios.get(`${REACT_APP_BASE_URL}/getBookmark`,
             {
                 headers:{
                     "Content-Type":'application/json'
@@ -255,7 +256,7 @@ export const getBookmark = createAsyncThunk('getBookmark/bookmark',async () =>{
 
 export const getAllProfile = createAsyncThunk('getAllProfile/profiles',async () => {
     try{
-        const {data} = await axios.get('http://localhost:4000/api/getAllProfile',
+        const {data} = await axios.get(`${REACT_APP_BASE_URL}/getAllProfile`,
             {
                 headers:{
                     "Content-Type":'application/json'
@@ -271,7 +272,7 @@ export const getAllProfile = createAsyncThunk('getAllProfile/profiles',async () 
 
 export const followUser = createAsyncThunk('followUser/follow', async ({_id}) => {
     try{
-        const {data} = await axios.get(`http://localhost:4000/api/following/${_id}`,
+        const {data} = await axios.get(`${REACT_APP_BASE_URL}/following/${_id}`,
             {
                 headers:{
                     "Content-Type":'application/json'
@@ -287,7 +288,7 @@ export const followUser = createAsyncThunk('followUser/follow', async ({_id}) =>
 
 export const followOtherUser = createAsyncThunk('follower/follow', async ({_id}) => {
     try{
-        const {data} = await axios.get(`http://localhost:4000/api/follower/${_id}`,
+        const {data} = await axios.get(`${REACT_APP_BASE_URL}/follower/${_id}`,
             {
                 headers:{
                     "Content-Type":'application/json'
@@ -303,7 +304,7 @@ export const followOtherUser = createAsyncThunk('follower/follow', async ({_id})
 
 export const getLatestPost = createAsyncThunk('getLatestPost/post', async () => {
     try{
-        const {data} = await axios.get(`http://localhost:4000/api/latestPost`,
+        const {data} = await axios.get(`${REACT_APP_BASE_URL}/latestPost`,
             {
                 headers:{
                     "Content-Type":'application/json'

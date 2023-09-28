@@ -88,8 +88,8 @@ function Profile({setEdit,edit}) {
                 </div>
                 {tweets?.posted.map((data,index) => {
                     return <Tweets key={index} 
-                                img={user.details?.Avatar.url}
-                                name={user.details?.userName}
+                                img={(user.details) ? user.details?.Avatar.url : ''}
+                                name={(user.details) ? user.details?.userName : ''}
                                 mention={getEmail}
                                 blog={data?.caption}
                                 _id={data?._id} 

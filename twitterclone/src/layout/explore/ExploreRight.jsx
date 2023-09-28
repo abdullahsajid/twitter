@@ -1,5 +1,4 @@
 import SuggestionFolks from "../SuggestionFolks";
-import folksdata from "../../data/folksdata.json"
 import { useSelector } from "react-redux";
 function ExploreRight() {
     const {alluser} = useSelector((state) => state.allUser.allUser)
@@ -9,9 +8,9 @@ function ExploreRight() {
     let allUserlength = alluser?.length
     for(let i=0; i<3; i++){
         let userIndex =  Math.floor(Math.random() * allUserlength)
-        copyUser.push(copyAllUser[userIndex]) 
-        // console.log(userIndex)
+        alluser && copyUser.push(copyAllUser[userIndex]) 
     }
+    
     return (
         <div className="right">
             <div className="rightArea">

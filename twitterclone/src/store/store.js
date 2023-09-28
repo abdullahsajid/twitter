@@ -38,7 +38,8 @@ export const store = configureStore({
         followUser: followUserReducer,
         followerUser:followerUserReducer,
         getLatestPost:getLatestPostReducer
-    }   
+    },
+    devTools:false  
 })
 
 

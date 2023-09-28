@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {postLike,gettingTweets,getAllPost,getAllUser} from '../action/UserAction'
 import { useNavigate } from "react-router-dom";

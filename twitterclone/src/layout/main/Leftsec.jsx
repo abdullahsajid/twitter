@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import '../../App.css';
 import { Link, useNavigate } from "react-router-dom"
 import { useDispatch, useSelector } from 'react-redux';
-import { logoutUser } from '../../action/UserAction';
+import { logoutUser,getProfile } from '../../action/UserAction';
 import { Oval } from 'react-loader-spinner'
 import Cookies from 'universal-cookie';
 import toast,{ Toaster } from 'react-hot-toast';
@@ -47,8 +47,7 @@ function Leftsec({edit}) {
   const profileData = useSelector((state) => state.profile.user)
 
   useEffect(() => {
-    // dispatch(getDetail(userData.profileDetails))
-    // console.log(userData.profileDetails)
+    dispatch(getProfile())
   },[dispatch])
   // let getEmail;
   // const userEmail = async () => {

@@ -5,7 +5,7 @@ import {getBookmark,getAllPost,getAllUser} from '../../action/UserAction'
 function Bookmark() {
     const dispatch = useDispatch()
     const userData = useSelector((state) => state.user.user)
-    const getEmail = userData.email.split('@')[0]
+    const getEmail = userData.email?.split('@')[0]
     useEffect(()=>{
         dispatch(getBookmark())
         dispatch(getAllPost())

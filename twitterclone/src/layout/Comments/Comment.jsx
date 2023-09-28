@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { postLike,gettingTweets,postComment,bookmarkPost } from '../../action/UserAction'
+import { postLike,gettingTweets,postComment,bookmarkPost,getLatestPost} from '../../action/UserAction'
 import { useDispatch,useSelector } from 'react-redux'
 import CommentOnTweet from './CommentOnTweet'
 import toast from 'react-hot-toast'
@@ -12,23 +12,25 @@ function Comment(){
     const location = useLocation()
     const {allpost} = useSelector((state) => state.allPost.allPost)
     const {alluser} = useSelector((state) => state.allUser.allUser)
-
+    const user = useSelector((state) => state.profile.user)
     const handleBack = () => {
         navigation(-1)
     }
+
     function likesCount(e){
         e.preventDefault()
         dispatch(postLike(location.state._id))    
         dispatch(gettingTweets())
     }
-    const handleComment = (e) => {
+
+    const handleComment = async (e) => {
         e.preventDefault()
         try{
             const _id = location.state._id
             const comment = addComment
             dispatch(postComment({_id,comment}))
             setAddComment('')
-            alert("Comment Added!")
+            dispatch(getLatestPost())
         }catch(error){
             console.log(error)
         }
@@ -48,7 +50,7 @@ function Comment(){
                       color: '#fff',
                   }})
             }
-            console.log(bookMarkPost)
+            
         }catch(error){
             console.log(error)
         }
@@ -133,7 +135,7 @@ function Comment(){
                             <div className='px-4 pt-4 pb-4'>
                                 <div className='flex items-center'>
                                     <div className='me-3 flex items-center' style={{flexBasis:"40px"}}>
-                                        <img src={`${location.state.img}`} className='rounded-full' style={{width:"48px",height:"40px"}}/>
+                                        <img src={`${user.details?.Avatar.url}`} className='rounded-full' style={{width:"48px",height:"40px"}}/>
                                     </div>
                                     <div className='flex justify-between items-center grow'>
                                         <div className='shrink grow w-full'>

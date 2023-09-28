@@ -1,18 +1,16 @@
 import { useEffect, useState } from 'react';
 import '../../App.css';
 import Tweets from '../Tweets';
-import tweetsDetails from '../Tweetsdetail';
 import { Oval } from 'react-loader-spinner'
 import { useDispatch, useSelector } from 'react-redux';
-import {postTweet,getLatestPost} from '../../action/UserAction'
+import {postTweet,getLatestPost,getAllPost,getAllUser} from '../../action/UserAction'
 import toast from 'react-hot-toast';
+
 function Midsec() {
     const dispatch = useDispatch()
     const[tweetTxt,setTweetTxt] = useState('')
     const userData = useSelector((state) => state.user.user)
     const profileData = useSelector((state) => state.profile.user)
-    const {allpost} = useSelector((state) => state.allPost.allPost)
-    const {alluser} = useSelector((state) => state.allUser.allUser)
     const[condition,setCondition] = useState(true)
     const setTime = () => {
         setTimeout(() => {
@@ -51,9 +49,12 @@ function Midsec() {
     }
     useEffect(()=>{
         dispatch(getLatestPost())
+        dispatch(getAllUser())
+        dispatch(getAllPost())
     },[dispatch])
     const {latestPost} = useSelector((state)=>state.getLatestPost.getLatestPost)
-    
+    const {allpost} = useSelector((state) => state.allPost.allPost)
+    const {alluser} = useSelector((state) => state.allUser.allUser)
     return (
         <div className="Mid">
             <div className="navbar">
@@ -115,6 +116,7 @@ function Midsec() {
                 <>
                 {latestPost.map((data,index) =>{
                     const item  = allpost?.find((val) => val.Owner == data.owner)
+                    console.log(item)
                     const getMail = alluser?.find((val) => val._id == data.owner)
                     const email = getMail?.email.split('@')[0]
                     return <Tweets
